@@ -1,14 +1,63 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Apr 28 17:40:21 2023
+Created on Thu May 11 09:13:10 2023
 
-@author: gy20ibs
+@author: ihadi
 """
 #Imported modules
 import doctest
 
+#First testing
+def rescale(min_val, max_val, data):
+    """
+    Rescales a 2D array of data to fit between minimum and maximum values.
 
+    Parameters
+    ----------
+    min_val : float
+        The minimum value to rescale the data to.
+    max_val : float
+        The maximum value to rescale the data to.
+    data : list[list[float]]
+        A 2D array of data to be rescaled.
 
+    Returns
+    -------
+    result : list[list[float]]
+        A 2D array of the rescaled data.
+     
+    Testing
+    --------
+    # >>> a = [[10], [2]]
+    # >>> min = 1
+    # >>> max = 2
+    # >>> rescale(min, max, a)
+    # [[2.0], [1.0]]
+    """
+    # Calculate the maximum and minimum
+    max_data = data[0][0]
+    min_data = data[0][0]
+    n_rows = len(data)
+    n_cols = len(data[0])
+    for i in range (n_rows):
+        for j in range(n_cols):
+            max_data = max(max_data, data[i][j])
+            min_data = min(min_data, data[i][j])
+    # Rescale the data
+    result = []
+    for i in range (n_rows):
+        row=[]
+        for j in range(n_cols):
+            #row.append((data[i][j] - min_data)/(max_data - min_data))
+            row.append((((data[i][j] - min_data)/(max_data - min_data))
+                        *(max_val - min_val)) + min_val)
+        result.append(row) 
+    return result
+
+#Run testing
+doctest.testmod()
+
+#Second Testing
 #A function defining the weighted raster values
 def weight_raster(geo_w, pop_w , tra_w, n_rows,n_cols,geology,population,transport):
     """
